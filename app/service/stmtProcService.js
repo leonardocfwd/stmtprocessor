@@ -21,6 +21,7 @@ angular.module('stmtProcApp').service('stmtProcService', function($http, $locati
 		 		failedRecord.errorType = 'NU';
 		 		failedRecords.push(failedRecord);
 		 	} else {
+		 		processedRefs.push(record._reference);
 		 		//If record not yet processed, lets check for the end balance.
 
 		 		//Parsing string of balances that were produced by the parser libraries.

@@ -1,6 +1,6 @@
 angular.module('stmtProcApp').factory("appUtils", function($q) {                                                                                                                                                   
 	     return {                                                                                                                                                                                                              
-	    	 launchModal : function(message){
+	    	 launchModal : function(message, type){
 	    		 $('#modalMessage').text(message);
 	    		 $('#messageModal').modal('show');
 	    	 },
@@ -22,25 +22,63 @@ angular.module('stmtProcApp').factory("appUtils", function($q) {
 	    	    var loading_screen = window.loading_screen;
 	    	    loading_screen.finish();
 	       },
+	       areRecordsValid: function(records){
+	       		//validate data integrity
+	       		for(var i=0; i<records.length; i++){
+	       			if(records[i]._reference == undefined
+	       				|| records[i].accountNumber == undefined
+	       				|| records[i].description == undefined
+	       				|| records[i].startBalance == undefined
+	       				|| records[i].mutation == undefined
+	       				|| records[i].endBalance == undefined
+	       				|| isNaN(records[i].startBalance)
+	       				|| isNaN(records[i].mutation)
+	       				|| isNaN(records[i].endBalance)){
+	       				return false;
+	       			}
+	       		}
+	       		return true;
+	       },
 	       getRecordsAsJson: function(file){
-	       		//working with promises to guarantee the return from the parser libraries.
-	       		var defer = $q.defer();
 	       		var records = [];
 
+	       		//working with promises to guarantee the return from the parser libraries.
+	       		var defer = $q.defer();
 	       		if(file.name.includes('.xml')){
+	       			var self = this;
 					var r = new FileReader();
 				      r.onload = function(e) { 
 					      var contents = e.target.result;
 					      var x2js = new X2JS();
 						  var xmlParsedJson = x2js.xml_str2json(contents);
+
+						  //if for some reason the file could not be parsed.
+						  if(!xmlParsedJson){
+						  	defer.reject(records);
+						  	return;
+						  }
+
 						  records = xmlParsedJson.records.record;
-						  defer.resolve(records);
+
+						  //validate data integrity
+						  if(self.areRecordsValid(records)){
+								defer.resolve(records);
+							} else {
+								defer.reject(records);
+							}
 				      }
 				      r.readAsText(file);
 				} else if(file.name.includes('.csv')){
+					var self = this;
 					Papa.parse(file, {
 						header: true,
 						complete: function(results) {
+							//if for some reason the file could not be parsed.
+							if(results.errors.length > 0){
+								defer.reject(records);
+								return;
+							}
+
 							angular.forEach(results.data, function(record, key) {
 								//Need to convert the csv headers into the same format as XML in order to be able to handle json object gracefully on
 								//the service.
@@ -53,9 +91,18 @@ angular.module('stmtProcApp').factory("appUtils", function($q) {
 								parsedRecord.endBalance = record['End Balance'];
 							 	records.push(parsedRecord);
 							});
-							defer.resolve(records);
+
+							//validate data integrity
+							if(self.areRecordsValid(records)){
+								defer.resolve(records);
+							} else {
+								defer.reject(records);
+							}
 						}
 					});
+				} else {
+					//file chosen was not in the expected format either .csv or .xml
+					defer.reject(records);
 				}
 
 
