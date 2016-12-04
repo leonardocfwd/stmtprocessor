@@ -20,7 +20,7 @@
 							<input type="file" id="stmtProcFileInput" file-model="stmtProcFile" accept=".csv, .xml">
 						</div>
 						<button type="submit" class="btn btn-primary"
-							ng-click="controller.sendFile()">Send File</button>
+							ng-click="controller.sendFile()" id="sendFileBtn">Send File</button>
 					</div>
 				</div>
 			</div>
@@ -42,7 +42,8 @@
 						<div class="alert {{controller.messageType}}" role="alert">
 							<strong id="modalMessage"></strong>
 						</div>
-						<table class="table table-striped" ng-show="controller.failedRecords.length > 0">
+						<table class="table table-striped" ng-show="controller.failedRecords.length > 0"
+								id="errorReportTable">
 							<thead> 
 								<tr>
 									<th>Transaction Reference #</th> 

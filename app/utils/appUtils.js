@@ -1,6 +1,6 @@
 angular.module('stmtProcApp').factory("appUtils", function($q) {                                                                                                                                                   
 	     return {                                                                                                                                                                                                              
-	    	 launchModal : function(message, type){
+	    	 launchModal : function(message){
 	    		 $('#modalMessage').text(message);
 	    		 $('#messageModal').modal('show');
 	    	 },

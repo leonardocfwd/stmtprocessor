@@ -1,4 +1,4 @@
-angular.module('stmtProcApp').controller('stmtProcController', function($http, $rootScope ,$scope, $location, $window, stmtProcService, appUtils) {
+angular.module('stmtProcApp').controller('stmtProcController', function($scope, stmtProcService, appUtils) {
 	var self = this;
 
 	//controller will communicate this array of failedRecords, if any.

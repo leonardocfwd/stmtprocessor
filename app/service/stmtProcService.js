@@ -1,4 +1,4 @@
-angular.module('stmtProcApp').service('stmtProcService', function($http, $location, $q, appUtils) {
+angular.module('stmtProcApp').service('stmtProcService', function($http, $location, $q) {
 	var self = this;
 
 	self.processCustomerRecords = function(records){
