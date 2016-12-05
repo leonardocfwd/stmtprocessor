@@ -57,7 +57,6 @@ describe('Customer Statement Processor App Utils', function(){
   			//var promise = appUtils.getRecordsAsJson(mockFile);
 
   			appUtils.getRecordsAsJson(mockFile).then(function(records) {
-  				console.log('caraio')
 				done();
 		    }, function(reason) {
 		    	 done(new Error('File should have been parsed successfully and records should be returned.'));
@@ -87,7 +86,6 @@ describe('Customer Statement Processor App Utils', function(){
   			promise.then(function() {
   				done(new Error('File should have been parsed successfully but no records should return because they are invalid.'));
 		    }, function(reason) {
-		    	console.log('caraio')
 				done();
 		    });
 
