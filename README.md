@@ -3,7 +3,7 @@
 This is an Angular app which takes a MTF940 file and processes it, returning two possible outputs:
 
 * Success, if all records are valid;
-* Error, if records contain duplicated references and/or incorrect end balances.
+* Error with detailed info, if records contain duplicated references and/or incorrect end balances.
 
 ### Usage
 
