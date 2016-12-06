@@ -17,6 +17,8 @@ This app should run in all major OS platforms (Windows, Linux and MacOS) having 
 * Click on the Send File button.
 * A modal pop-up will be opened showing the results.
 
+You can find some test files to upload in the `tests/e2e/files` folder. Feel free also to use your own files.
+
 ### Tests
 
 In order to execute the tests, you must have the following installed in your machine:
