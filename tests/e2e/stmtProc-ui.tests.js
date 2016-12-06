@@ -100,7 +100,7 @@ describe('Customer Statement Processor', function(){
 
   		 var message = element(by.id('modalMessage')).getText();
 		
-		 expect(message).toEqual('Your file could not be loaded.');
+		 expect(message).toContain('Your file could not be parsed.');
 	});
 
 	it('should error message when unparseable CSV file', function(){
@@ -115,7 +115,7 @@ describe('Customer Statement Processor', function(){
 
   		 var message = element(by.id('modalMessage')).getText();
 		
-		 expect(message).toEqual('Your file could not be loaded.');
+		 expect(message).toContain('Your file could not be parsed.');
 	});
 
 	it('should error message when unparseable XML file', function(){
@@ -130,6 +130,6 @@ describe('Customer Statement Processor', function(){
 
   		 var message = element(by.id('modalMessage')).getText();
 		
-		 expect(message).toEqual('Your file could not be loaded.');
+		 expect(message).toContain('Your file could not be parsed.');
 	});
 });
