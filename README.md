@@ -6,6 +6,10 @@ This is an Angular app which takes a MTF940 file and processes it, returning thr
 * Error with detailed info, if records contain duplicated references and/or incorrect end balances.
 * Error, if file uploaded is not in the MTF940 format, does not contain CSV or XML file extensions, has any empty lines, fields don't match the MT940 format, or if for any reason this file could not be parsed because it was not in csv/xml standards.
 
+### Platform
+
+This app should run in all major OS platforms (Windows, Linux and MacOS) having Chrome or Firefox installed.
+
 ### Usage
 
 * Open index.html
