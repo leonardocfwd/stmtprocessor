@@ -1,8 +1,11 @@
 angular.module('stmtProcApp').factory("appUtils", function($q) {                                                                                                                                                   
 	     return {                                                                                                                                                                                                              
-	    	 launchModal : function(message){
-	    		 $('#modalMessage').text(message);
-	    		 $('#messageModal').modal('show');
+	    	 launchModal : function(messages){
+	    	 	$('#modalMessage').empty();
+	    	 	angular.forEach(messages, function(message, key) {
+	    	 		$('#modalMessage').append($( "<p>"+message+"</p>" ));
+	    	 	});
+	    		$('#messageModal').modal('show');
 	    	 },
 	    	 initializeLoading: function() {   
 	    	   window.loading_screen = window.pleaseWait({
